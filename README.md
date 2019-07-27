@@ -1,6 +1,6 @@
 # go-oas-server
 
-go-oas-server generates Go code from an [OpenAPI 3 specification](https://swagger.io/specification/).
+Generate Go server code from an [OpenAPI 3 specification](https://swagger.io/specification/).
 
 This project is for you, if you want to write a REST API in Go, and you value the following:
 

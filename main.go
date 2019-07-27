@@ -13,7 +13,7 @@ import (
 var (
 	app = kingpin.New(
 		"go-oas-server",
-		"go-oas-server - Go server generator from OpenAPI 3",
+		"go-oas-server - Generate Go server code from an OpenAPI 3 specification",
 	).DefaultEnvars()
 
 	versionCommand = app.Command(
@@ -47,7 +47,7 @@ func main() {
 
 	switch command {
 	case versionCommand.FullCommand():
-		fmt.Println("0.0.1+master")
+		fmt.Println("0.1.0+master")
 	case generateCommand.FullCommand():
 		err := commands.Generate(*generateFileFlag, *generateOutputDirFlag)
 		if err != nil {
