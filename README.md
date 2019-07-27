@@ -32,9 +32,9 @@ func (s *server) HandlePetIndex() (gen.Middlewares, gen.APIOperationPetIndex) {
 }
 
 func main() {
-    s := NewOpenAPIServer(&myServer{})
+	s := NewOpenAPIServer(&myServer{})
 	s.Boot()
-    log.Fatal(http.ListenAndServe(":8000", s)
+	log.Fatal(http.ListenAndServe(":8000", s)
 }
 ```
 
@@ -42,7 +42,7 @@ func main() {
 
 This project is currently only little more than a proof of concept. While the general building blocks are in place, a lot of the API may change. Further, some areas are not even covered yet such as generating support for responses.
 
-Here's an (non-exhaustive) list of what's left to do:
+Here's a (non-exhaustive) list of what's left to do:
 * Support more types and validations
 * Endpoint-level Go dependencies
 * Responses
