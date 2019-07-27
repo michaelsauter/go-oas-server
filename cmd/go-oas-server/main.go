@@ -7,7 +7,7 @@ import (
 	"runtime/debug"
 
 	"github.com/alecthomas/kingpin"
-	"github.com/michaelsauter/go-oas-server/commands"
+	"github.com/michaelsauter/go-oas-server/pkg/commands"
 )
 
 var (

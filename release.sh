@@ -12,8 +12,8 @@ echo "Running tests..."
 make test
 
 echo "Update version..."
-old_version=$(grep -o "[0-9]*\.[0-9]*\.[0-9]*" main.go)
-sed -i.bak 's/fmt.Println("'$old_version'+master")/fmt.Println("'$version'")/' main.go
+old_version=$(grep -o "[0-9]*\.[0-9]*\.[0-9]*" cmd/go-oas-server/main.go)
+sed -i.bak 's/fmt.Println("'$old_version'+master")/fmt.Println("'$version'")/' cmd/go-oas-server/main.go
 sed -i.bak 's/'$old_version'/'$version'/' README.md
 
 echo "Mark version as released in changelog..."
@@ -28,15 +28,15 @@ echo "Build binaries..."
 make build
 
 echo "Update repository..."
-git add main.go README.md CHANGELOG.md
+git add cmd/go-oas-server/main.go README.md CHANGELOG.md
 git commit -m "Bump version to ${version}"
 git tag --message="v$version" --force "v$version"
 git tag --message="latest" --force latest
 
 echo "Set master version again"
-sed -i.bak 's/fmt.Println("'$version'")/fmt.Println("'$version'+master")/' main.go
-rm main.go.bak
-git add main.go
+sed -i.bak 's/fmt.Println("'$version'")/fmt.Println("'$version'+master")/' cmd/go-oas-server/main.go
+rm cmd/go-oas-server/main.go.bak
+git add cmd/go-oas-server/main.go
 git commit -m "Set master version to ${version}+master"
 
 echo "v$version tagged."

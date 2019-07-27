@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/getkin/kin-openapi/openapi3"
-	"github.com/michaelsauter/go-oas-server/generator"
+	"github.com/michaelsauter/go-oas-server/pkg/generator"
 )
 
 // Generate renders Go files based on specification in file into directory outputDir.

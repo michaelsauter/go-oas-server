@@ -7,18 +7,18 @@ import (
 )
 
 func TestGenerate(t *testing.T) {
-	defer os.RemoveAll("../test/out")
-	err := os.MkdirAll("../test/out", 0700)
+	defer os.RemoveAll("../../internal/test/out")
+	err := os.MkdirAll("../../internal/test/out", 0700)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	err = Generate("../test/fixtures/openapi.json", "../test/out")
+	err = Generate("../../internal/test/fixtures/openapi.json", "../../internal/test/out")
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	actual, err := ioutil.ReadFile("../test/out/components.go")
+	actual, err := ioutil.ReadFile("../../internal/test/out/components.go")
 	if err != nil {
 		t.Fatal(err)
 	}

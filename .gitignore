@@ -1,4 +1,2 @@
-go-oas-server-linux-amd64
-go-oas-server-darwin-amd64
-go-oas-server-windows-amd64.exe
-test/e2e/go-oas-server-test
+cmd/go-oas-server/go-oas-server-*
+internal/test/e2e/go-oas-server-test
