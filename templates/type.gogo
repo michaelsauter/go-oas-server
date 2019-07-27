@@ -1,0 +1,16 @@
+{{- if .Schema.Ref }}
+type {{ .Prefix }}{{ title .Name }} {{ goTypeFrom .Schema }}
+{{- else }}
+{{- if eq .Schema.Value.Type "object" }}
+{{- if .Schema.Value.Description }}
+// {{ .Schema.Value.Description }}
+{{- end }}
+type {{ .Prefix }}{{ title .Name }} struct {
+    {{- range $propName, $propDefinition := .Schema.Value.Properties }}
+        {{ publicGoName $propName }} {{ goTypeFrom $propDefinition }} `json:"{{ $propName }}"` {{ if $propDefinition.Value.Description }}// {{ $propDefinition.Value.Description }}{{ end }}
+    {{- end }}
+}
+{{- else }}
+// Not supported yet!
+{{- end }}
+{{- end }}

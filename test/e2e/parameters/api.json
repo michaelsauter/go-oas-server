@@ -1,0 +1,147 @@
+{
+    "openapi": "3.0.1",
+    "info": {},
+    "externalDocs": {},
+    "servers": [],
+    "tags": [],
+    "paths": {
+        "/pets": {
+            "get": {
+                "tags": [],
+                "summary": "List pets",
+                "operationId": "petIndex",
+                "parameters": [
+                    {
+                      "name": "status",
+                      "in": "query",
+                      "description": "",
+                      "schema": {
+                        "type": "integer"
+                      }
+                    },
+                    {
+                        "name": "foo",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                          "type": "string"
+                        }
+                    },
+                    {
+                        "name": "bar",
+                        "in": "query",
+                        "description": "",
+                        "schema": {
+                            "default": 10,
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {},
+                "security": []
+            }
+        },
+        "/cats": {
+            "get": {
+                "tags": [],
+                "summary": "List cats",
+                "operationId": "catIndex",
+                "parameters": [
+                    {
+                        "name": "X-Client-ID",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    },
+                    {
+                        "name": "X-Client-Time",
+                        "in": "header",
+                        "description": "",
+                        "schema": {
+                            "type": "string",
+                            "format": "date-time"
+                        }
+                    }
+                ],
+                "responses": {},
+                "security": []
+            }
+        },
+        "/pets/{id}": {
+            "get": {
+                "tags": [],
+                "summary": "Show pet",
+                "operationId": "petShow",
+                "parameters": [
+                    {
+                      "name": "id",
+                      "in": "path",
+                      "description": "",
+                      "schema": {
+                        "type": "integer"
+                      }
+                    }
+                ],
+                "responses": {},
+                "security": []
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Category": {
+                "type": "object",
+                "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "name": {
+                    "type": "string"
+                }
+                }
+            },
+            "Pet": {
+                "required": [
+                "name",
+                "photoUrls"
+                ],
+                "type": "object",
+                "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "category": {
+                    "$ref": "#/components/schemas/Category"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "doggie"
+                },
+                "photoUrls": {
+                    "type": "array",
+                    "items": {
+                    "type": "string"
+                    }
+                },
+                "status": {
+                    "type": "string",
+                    "description": "pet status in the store",
+                    "enum": [
+                    "available",
+                    "pending",
+                    "sold"
+                    ]
+                }
+                }
+            }
+        }
+    },
+    "securitySchemes": {}
+}

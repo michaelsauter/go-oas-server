@@ -1,0 +1,67 @@
+{{- if .Param.Value.Required }}
+if len({{ .RawVariable }}) == 0 {
+    http.Error(w, "{{ .Location }} '{{ .Param.Value.Name }}' required", http.StatusBadRequest)
+    return
+}
+{{- else if .Param.Value.Schema.Value.Default }}
+p.{{ publicGoName .Param.Value.Name }} = {{ .Param.Value.Schema.Value.Default }}
+{{- end }}
+if len({{ .RawVariable }}) > 0 {
+    {{- if eq .Param.Value.Schema.Value.Type "string" }}
+        {{- if eq .Param.Value.Schema.Value.Format "uuid" }}
+        u, err := uuid.Parse({{ .RawVariable }})
+        if err != nil {
+            http.Error(w, "{{ .Location }} '{{ .Param.Value.Name }}' is not a UUID", http.StatusBadRequest)
+            return
+        }
+        p.{{ publicGoName .Param.Value.Name }} = u
+        {{- else if eq .Param.Value.Schema.Value.Format "date-time" }}
+        t, err := time.Parse(time.RFC3339, {{ .RawVariable }})
+        if err != nil {
+            http.Error(w, "{{ .Location }} '{{ .Param.Value.Name }}' is not a date-time", http.StatusBadRequest)
+            return
+        }
+        p.{{ publicGoName .Param.Value.Name }} = t
+        {{- else if eq .Param.Value.Schema.Value.Format "date" }}
+        t, err := time.Parse("2006-01-02", {{ .RawVariable }})
+        if err != nil {
+            http.Error(w, "{{ .Location }} '{{ .Param.Value.Name }}' is not a date", http.StatusBadRequest)
+            return
+        }
+        p.{{ publicGoName .Param.Value.Name }} = t
+        {{- else }}
+        {{- if .Param.Value.Schema.Value.MinLength }}
+        if len({{ .RawVariable }}) < {{ .Param.Value.Schema.Value.MinLength }} {
+            http.Error(w, "{{ .Location }} '{{ .Param.Value.Name }}' must be {{ .Param.Value.Schema.Value.MinLength }} characters long", http.StatusBadRequest)
+            return
+        }
+        {{- end }}
+        {{- if .Param.Value.Schema.Value.MaxLength }}
+        if len({{ .RawVariable }}) > {{ .Param.Value.Schema.Value.MaxLength }} {
+            http.Error(w, "{{ .Location }} '{{ .Param.Value.Name }}' must not be longer than {{ .Param.Value.Schema.Value.MaxLength }} characters", http.StatusBadRequest)
+            return
+        }
+        {{- end }}
+        p.{{ publicGoName .Param.Value.Name }} = {{ .RawVariable }}
+        {{- end }}
+    {{- else if eq .Param.Value.Schema.Value.Type "integer" }}
+    intValue, err := strconv.Atoi({{ .RawVariable }})
+    if err != nil {
+        http.Error(w, "{{ .Location }} '{{ .Param.Value.Name }}' is not an integer", http.StatusBadRequest)
+        return
+    }
+    {{- if .Param.Value.Schema.Value.Min }}
+    if len({{ .RawVariable }}) < {{ .Param.Value.Schema.Value.Min }} {
+        http.Error(w, "{{ .Location }} '{{ .Param.Value.Name }}' must be at least {{ .Param.Value.Schema.Value.Min }}", http.StatusBadRequest)
+        return
+    }
+    {{- end }}
+    {{- if .Param.Value.Schema.Value.Max }}
+    if len({{ .RawVariable }}) > {{ .Param.Value.Schema.Value.Max }} {
+        http.Error(w, "{{ .Location }} '{{ .Param.Value.Name }}' must be at most {{ .Param.Value.Schema.Value.Max }}", http.StatusBadRequest)
+        return
+    }
+    {{- end }}
+    p.{{ publicGoName .Param.Value.Name }} = intValue
+    {{- end}}
+}
