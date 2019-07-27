@@ -8,8 +8,12 @@ import (
 
 func TestGenerate(t *testing.T) {
 	defer os.RemoveAll("../test/out")
-	os.MkdirAll("../test/out", 0700)
-	err := Generate("../test/fixtures/openapi.json", "../test/out")
+	err := os.MkdirAll("../test/out", 0700)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	err = Generate("../test/fixtures/openapi.json", "../test/out")
 	if err != nil {
 		t.Fatal(err)
 	}
