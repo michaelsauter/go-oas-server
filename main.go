@@ -47,7 +47,7 @@ func main() {
 
 	switch command {
 	case versionCommand.FullCommand():
-		fmt.Println("0.1.0+master")
+		fmt.Println("0.1.0")
 	case generateCommand.FullCommand():
 		err := commands.Generate(*generateFileFlag, *generateOutputDirFlag)
 		if err != nil {
