@@ -26,6 +26,8 @@ func (oas *OpenAPIServer) {{ $route }}(w http.ResponseWriter, r *http.Request, p
 
 	{{- if $routePathPoint.Segments }}
 	// Match against segments
+	// https://swagger.io/specification/#pathsObject defines that
+	// concrete definitions will be matched first (before params).
 	{{- range $segment, $pathPoint := $routePathPoint.Segments }}
 	{{- if not $pathPoint.IsParam }}
 	if head == "{{ $segment }}" {
