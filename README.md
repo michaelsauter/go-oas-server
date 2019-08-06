@@ -55,7 +55,6 @@ Also, go-oas-server cannot generate code for every possible specification. In pa
 
 go-oas-server (currently) does not support:
 
-* Multiple paths with different path parameters in the same position (`/foo/{carId}` and `/foo/{personId}`)
 * Parameter serialization.
 * Parameters defined with `content` instead of `schema`.
 * Links.

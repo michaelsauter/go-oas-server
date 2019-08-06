@@ -38,6 +38,8 @@ func (oas *OpenAPIServer) {{ $route }}(w http.ResponseWriter, r *http.Request, p
 
 	{{- if $routePathPoint.AnySegmentIsParam }}
 	// "Match" against path param
+	// https://swagger.io/specification/#pathsObject defines that
+	// no two paths can have different params at the same depth.
 	{{- range $segment, $pathPoint := $routePathPoint.Segments}}
 	{{- if $pathPoint.IsParam }}
 	oas.{{ $pathPoint.Route }}(w, r, p)
