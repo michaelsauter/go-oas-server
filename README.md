@@ -2,7 +2,7 @@
 
 Generate Go server code from an [OpenAPI 3 specification](https://swagger.io/specification/).
 
-This project is for you, if you want to write a REST API in Go, and you value the following:
+This project is for you if you want to write a REST API in Go, and you value the following:
 
 * Design-fist approach using OpenAPI 3
 * Type safety: avoid using `context.Context` and `interface{}` as much as possible
@@ -77,4 +77,4 @@ There are further egde cases for sure, if you think you've run into one, please 
 
 * go-swagger is an implementation of Swagger 2.0, not OpenAPI 3.
 * go-swagger looks huge and I wanted something smaller that feels more like writing `net/http` handlers.
-* oas-go-server does not generate clients.
+* go-oas-server does not generate clients.
