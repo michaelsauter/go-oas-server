@@ -63,5 +63,24 @@ if len({{ .RawVariable }}) > 0 {
     }
     {{- end }}
     p.{{ publicGoName .Param.Value.Name }} = intValue
+    {{- else if eq .Param.Value.Schema.Value.Type "number" }}
+    floatValue, err := strconv.ParseFloat({{ .RawVariable }}, 64)
+    if err != nil {
+        http.Error(w, "{{ .Location }} '{{ .Param.Value.Name }}' is not a number", http.StatusBadRequest)
+        return
+    }
+    {{- if .Param.Value.Schema.Value.Min }}
+    if len({{ .RawVariable }}) < {{ .Param.Value.Schema.Value.Min }} {
+        http.Error(w, "{{ .Location }} '{{ .Param.Value.Name }}' must be at least {{ .Param.Value.Schema.Value.Min }}", http.StatusBadRequest)
+        return
+    }
+    {{- end }}
+    {{- if .Param.Value.Schema.Value.Max }}
+    if len({{ .RawVariable }}) > {{ .Param.Value.Schema.Value.Max }} {
+        http.Error(w, "{{ .Location }} '{{ .Param.Value.Name }}' must be at most {{ .Param.Value.Schema.Value.Max }}", http.StatusBadRequest)
+        return
+    }
+    {{- end }}
+    p.{{ publicGoName .Param.Value.Name }} = intValue
     {{- end}}
 }

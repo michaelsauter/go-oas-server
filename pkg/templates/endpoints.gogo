@@ -99,6 +99,12 @@ func (e APIEndpoint{{ title $op.OperationID }}) execute(w http.ResponseWriter, r
 				http.Error(w, fmt.Sprintf("Invalid user id %q", v), http.StatusBadRequest)
 				return
 			}
+			{{- else if eq $goType "float64" }}
+			rawValue, err := strconv.ParseFloat(v, 64)
+			if err != nil {
+				http.Error(w, fmt.Sprintf("Invalid user id %q", v), http.StatusBadRequest)
+				return
+			}
 			{{- else }}
 			panic("Not implemented")
 			{{- end }}

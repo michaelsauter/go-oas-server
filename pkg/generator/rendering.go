@@ -163,7 +163,7 @@ func goTypeFrom(s *openapi3.SchemaRef) string {
 	val := s.Value
 	switch val.Type {
 	case "number":
-		return "int"
+		return "float64"
 	case "integer":
 		return "int"
 	case "boolean":

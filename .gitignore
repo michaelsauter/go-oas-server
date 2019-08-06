@@ -1,2 +1,3 @@
 cmd/go-oas-server/go-oas-server-*
 internal/test/e2e/go-oas-server-test
+pkg/commands/templates.go
