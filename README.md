@@ -61,6 +61,7 @@ go-oas-server (currently) does not support:
 * Links.
 * Callbacks.
 * Responses (however support for this is planned).
+* Use of `oneOf`, `anyOf`, `allOf` anywhere.
 
 There are further egde cases for sure, if you think you've run into one, please open an issue.
 
